@@ -1,7 +1,7 @@
 ## GET STARTED
 - Launch server : `npm run start`
 - Run tests : `npm run test`
-- Insomnia: Insomnia_2024-01-13.json 
+- Insomnia: Insomnia_2024-01-15.json 
 
 
 
