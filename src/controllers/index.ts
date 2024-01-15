@@ -3,7 +3,7 @@ import { GetByID, Save, ValidateByName } from '../domain/services/promotion_code
 
 const router = express.Router();
 
-router.post('/promotion_codes/validate', ValidateByName);
+router.put('/promotion_codes/validate', ValidateByName);
 router.post('/promotion_codes/', Save);
 router.get('/promotion_codes/:id', GetByID);
 

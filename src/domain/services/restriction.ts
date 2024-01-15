@@ -24,34 +24,34 @@ function isWeatherValid(weather: object): boolean {
     return Boolean(weather);
 }
 
+function checkRestrictionTree(condition: object, age: number, meteo: object): boolean {
+    if ('@age' in condition) {
+        return isAgeValid(age, condition['@age']);
+    }
+    else if ('@meteo' in condition) {
+        return isWeatherValid(meteo);
+    }
+    else if ('@or' in condition) {
+        const orConditions = condition['@or'] as object[];
+        return isOrValid(age, meteo, orConditions);
+    }
+    else if ('@and' in condition) {
+        const andConditions = condition['@and'] as object[];
+        return isAndValid(age, meteo, andConditions);
+    }
+    return false
+}
+
 function isOrValid(age: number, meteo: object, orCondition: object[]): boolean {
     return orCondition.some(condition => {
-        if ('@age' in condition) {
-            return isAgeValid(age, condition['@age']);
-        }
-        else if ('@meteo' in condition) {
-            return isWeatherValid(meteo);
-        }
-        else if ('@and' in condition) {
-            const andConditions = condition['@and'] as object[];
-            return isAndValid(age, meteo, andConditions);
-        }
+        return checkRestrictionTree(condition, age, meteo)
     });
 
 }
 
 function isAndValid(age: number, meteo: object, andConditions: object[]): boolean {
     return andConditions.every(condition => {
-        if ('@age' in condition) {
-            return isAgeValid(age, condition['@age']);
-        } else if ('@meteo' in condition) {
-            return isWeatherValid(meteo);
-        }
-        else if ('@or' in condition) {
-            const orConditions = condition['@or'] as object[];
-            return isOrValid(age, meteo, orConditions);
-        }
-        return false;
+        return checkRestrictionTree(condition, age, meteo)
     });
 }
 

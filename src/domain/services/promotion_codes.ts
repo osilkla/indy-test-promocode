@@ -42,7 +42,6 @@ const GetByID = async (req: Request, res: Response) => {
         statusCode: number = 0
     try {
         const id = req.params.id;
-        // TODO: could check if id is uuid type
         if (id) {
             const ormResponse = await FindOneByID(id);
             if (ormResponse && 'err' in ormResponse) {

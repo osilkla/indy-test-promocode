@@ -2,12 +2,12 @@ import { Avantage } from "../model/Avantage.js";
 import { Restriction } from "../model/Restriction.js";
 import { Promotion_codes } from "../model/Promotion_codes.js";
 
+// Fake database
 const promo_codes_by_id = new Map<string, Promotion_codes>();
 const promo_codes_by_name = new Map<string, Promotion_codes>();
 
 const InsertOne = async (name: string, avantage: Avantage, restrictions: Restriction[]): Promise<{ _id: string; } | { err: { code: number; message: string; }; }> => {
     try {
-        // TODO: could generate uuid 
         const _id = '1';
         promo_codes_by_id.set(_id, { _id, name, avantage, restrictions });
         promo_codes_by_name.set(name, { _id, name, avantage, restrictions });
